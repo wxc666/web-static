@@ -1,0 +1,143 @@
+body {
+    /*background: url("../images/bg1.jpg") no-repeat;*/
+	background-size: cover;
+	/*属性为 @keyframes 动画规定名称*/
+    /*animation-name: myfirst;
+	 /* Safari 和 Chrome */
+	/*-webkit-animation-name:myfirst;
+ 	/*属性定义动画完成一个周期所需要的时间，以秒或毫秒计*/
+    /*animation-duration: 12s;
+	/* Safari 和 Chrome */
+	/*-webkit-animation-duration:12s; 
+    /*属性定义动画何时开始*/
+    /*animation-delay: 1s;
+	 /* Firefox */ 
+    /*-moz-animation-delay: 1s;
+	/* Safari 和 Chrome */
+   /* -webkit-animation-delay: 1s; 
+    /*动画开始时间,规定动画应该无限次播放*/
+    /*animation-iteration-count: infinite;
+	/* Safari 和 Chrome */
+	/*-webkit-animation-iteration-count:infinite; 
+	/*属性规定动画正在运行还是暂停*/
+    /*animation-play-state: running;
+	/* Safari 和 Chrome */
+	/*-webkit-animation-play-state:running; 
+
+    /*
+	animation:myfirst 5s infinite;
+    -moz-animation:myfirst 5s infinite; 
+    -webkit-animation:myfirst 5s infinite; 
+    -o-animation:myfirst 5s infinite; 
+    */
+
+}
+
+@keyframes myfirst {
+    0% {
+        background: url("../images/bg1.jpg");
+    }
+    34% {
+        background: url("../images/bg2.jpg");
+    }
+    67% {
+        background: url("../images/bg3.jpg");
+    }
+    100% {
+        background: url("../images/bg1.jpg");
+    }
+}
+/* Firefox */
+@-moz-keyframes myfirst {
+    0% {
+        background: url("../images/bg1.jpg");
+    }
+    34% {
+        background: url("../images/bg2.jpg");
+    }
+    67% {
+        background: url("../images/bg3.jpg");
+    }
+    100% {
+        background: url("../images/bg1.jpg");
+    }
+}
+/* Safari and Chrome */
+@-webkit-keyframes myfirst {
+    0% {
+        background: url("../images/bg1.jpg");
+    }
+    34% {
+        background: url("../images/bg2.jpg");
+    }
+    67% {
+        background: url("../images/bg3.jpg");
+    }
+    100% {
+        background: url("../images/bg1.jpg");
+    }
+} 
+
+/* Opera */
+@-o-keyframes myfirst {
+    0% {
+        background: url("../images/bg1.jpg");
+    }
+    34% {
+        background: url("../images/bg2.jpg");
+    }
+    67% {
+        background: url("../images/bg3.jpg");
+    }
+    100% {
+        background: url("../images/bg1.jpg");
+    }
+} 
+
+.form {
+    background: rgba(255, 255, 255, 0.2);
+    width: 400px;
+    margin: 120px auto;
+}
+
+#login_form{
+	display: block;
+}
+#register_form{
+	display: none;
+}
+/*阴影*/
+.fa {
+    display: inline-block;
+    top: 27px;
+    left: 6px;
+    position: relative;
+    color: #ccc;
+}
+
+input[type="text"], input[type="password"] {
+    padding-left: 26px;
+}
+
+.checkbox {
+    padding-left: 21px;
+}
+input.error {
+  border: 1px dashed red; 
+}
+label.error {
+  padding-left: 0px;
+  padding-bottom: 0px !important;
+  font-weight: bold;
+  color: #EA5200;
+}
+
+.popover-content {
+    padding: 0px 5px;
+    color: red;
+    font-size: 12px;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}

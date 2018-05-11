@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="addFrag">
+        <div class="container">
+            <form id="addForm" method="post" class="easyui-form">
+                <table cellpadding="5" align="center">
+                    <tr>
+                        <td>名称:</td>
+                        <td><input class="easyui-validatebox" type="text" name="name" data-options="required:true,validType:'maxLength[20]'"/></td>
+                    </tr>
+                    <tr>
+                        <td>描述:</td>
+                        <td><input class="easyui-validatebox" type="text" name="description" data-options="required:true,validType:'maxLength[30]'"/></td>
+                    </tr>
+                    <tr>
+                        <td>状态:</td>
+                        <td>
+                            <select class="easyui-combobox" name="state" style="width:80px" data-options="panelHeight:'auto'">
+                                <option value="0">禁用</option>
+                                <option value="1" selected="selected">启用</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
