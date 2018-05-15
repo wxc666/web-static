@@ -347,6 +347,31 @@ $(function() {
 		changeSkin();
 	}
 
+    $.extend($.fn.validatebox.defaults.rules, {
+        confirmPass: {
+            validator: function(value, param){
+                var pass = $(param[0]).passwordbox('getValue');
+                return value == pass;
+            },
+            message: '新密码确认不一致'
+        },
+        notEq: {
+            validator: function(value, param){
+                var pass = $(param[0]).passwordbox('getValue');
+                return value != pass;
+            },
+            message: '新密码与旧密码不能一样'
+        },
+		maxLength: {     
+			validator: function(value, param){     
+				return param[0] >= value.length;     
+			},     
+			message: '输入长度超过{0}位字符'    
+		}    
+    })
+
+
+
 });
 //设置主题颜色
 function changeSkin(){
@@ -420,4 +445,47 @@ function logout(){
 			}
 	    }
 	});
+}
+
+function changePwd(){
+	if($('#changePwdForm').form('validate')){
+		var param = {
+	        "oldPwd":$("#oldPwd").passwordbox("getValue"),
+	        "newPwd":$("#newPwd").passwordbox("getValue")
+    	};
+
+		var encryptParam = {
+	        "param":AESEncrypt(param)
+    	};
+
+		//alert(JSON.stringify(encryptParam));
+		//alert(AESEncrypt(JSON.stringify(param)));
+
+		//alert(AESDecrypt(AESEncrypt(JSON.stringify(param))));
+		
+            $.messager.progress();
+            $.ajax({
+                type:'POST',
+               // contentType: "application/json; charset=utf-8",  //直接发送json对象
+                url:"/user/change_pwd",
+                data:encryptParam,
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    if(data.code!=0){
+                        $.messager.alert('提示', data.msg, 'error');
+                    }else{
+				    	$.cookie("token",null,{expires:-1,path:'/'})
+						window.location.href = "/home/login";
+                    }
+                },
+                error:function(e) {
+                    $.messager.alert('提示', '保存失败', 'error');
+
+                },
+                complete:function () {
+                    $.messager.progress('close');
+                }
+            });
+	}
 }
