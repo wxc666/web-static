@@ -1,18 +1,6 @@
 
 $(function() {
-
-    $('#loginWindow').window('open');
-    var topHeight=$('#loginWindow').window('options').top;
-   // alert(topHeight);
-    if(topHeight>150){
-		topHeight -=100;
-    }
-    $('#loginWindow').window("move",{
-			left:$('#loginWindow').window('options').left,
-			top:topHeight
-	});
 	refreshCode();
-
     if ($.cookie("rmbUser") == "true") {  
         $("#rmbUser").attr("checked", "checked");  
        // $("input[name='userName']").val($.cookie("userName"));  
@@ -27,6 +15,7 @@ $(function() {
            login();
         }
     });	
+    rollingWin();
 });
 
 
@@ -106,17 +95,47 @@ function login(){
         }
     });
 
-    function remenberMe(){
-     if ($("#rmbUser").attr("checked") == "checked") {  
-			var userName = $("#userName").textbox("getValue");
-    		var password = $("#password").passwordbox("getValue");
-            $.cookie("rmbUser", "true", {expires:7, path:'/'}); // 存储一个带7天期限的 cookie  
-            $.cookie("userName", userName, {expires:7, path:'/'}); 
-            $.cookie("password", password, {expires:7, path:'/'}); 
-        } else {  
-            $.cookie("rmbUser", "false", {expires:-1, path:'/'});
-            $.cookie("userName", "", {expires:-1, path:'/'});
-            $.cookie("password", "", {expires:-1, path:'/'});  
-        } 
-    }
+
+}
+
+function remenberMe(){
+ if ($("#rmbUser").attr("checked") == "checked") {  
+        var userName = $("#userName").textbox("getValue");
+        var password = $("#password").passwordbox("getValue");
+        $.cookie("rmbUser", "true", {expires:7, path:'/'}); // 存储一个带7天期限的 cookie  
+        $.cookie("userName", userName, {expires:7, path:'/'}); 
+        $.cookie("password", password, {expires:7, path:'/'}); 
+    } else {  
+        $.cookie("rmbUser", "false", {expires:-1, path:'/'});
+        $.cookie("userName", "", {expires:-1, path:'/'});
+        $.cookie("password", "", {expires:-1, path:'/'});  
+    } 
+}
+
+$(window).resize(function() {
+    resetPanelPos();
+});
+
+function resetPanelPos(){
+     var winW=$(window).width();
+     var winH=$(window).height();
+     var panelW=$("#loginWindow").width();
+     var panelH=$("#loginWindow").height();
+     var newW = winW/2-panelW/2;
+     var newH = winH/2-panelH/2;
+     $("#loginWindow").css("left",newW);
+     $("#loginWindow").css("top",newH);
+}
+
+function rollingWin(){
+     var winW=$(window).width();
+     var winH=$(window).height();
+     var panelW=$("#loginWindow").width();
+     var panelH=$("#loginWindow").height();
+     var newW = winW/2-panelW/2;
+     var newH = winH/2-panelH/2;
+     $("#loginWindow").css("left",newW);
+     $("#loginWindow").animate({
+        top:newH
+      });
 }
