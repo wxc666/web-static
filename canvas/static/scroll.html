@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="joneywon">
+  <title>DEMO</title>
+    <script src="jquery-1.8.0.min.js"></script>
+  <style>
+  #gotop{display:none;position:fixed;right:5px;bottom:4rem;width:33px;height:33px;z-index:999;}
+  </style>
+ </head>
+ <body>
+<div id="gotop" onclick="javascript:scroll(0,0);"><img src="images/top33x33.png"></div>
+
+<script type="text/javascript">
+$(function(){
+    $(window).scroll(function() {//滚屏
+        var scrollTop = $(document.body).scrollTop();//滚动高度
+        var windowH = $(window).height();//页面高度
+        if(scrollTop>windowH){
+            $("#gotop").show();
+        }else{
+            $("#gotop").hide();
+        }
+    });
+});
+</script>
+
+ </body>
+</html>

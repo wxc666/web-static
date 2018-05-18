@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="description" content="springcloud client status"></meta>
+    <meta name="author" content="wangxc1112"></meta>
+   	<title>joney</title>
+
+  	<link href="bootstrap/3.3.7/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="jquery/2.1.1/jquery.min.js"></script>
+    <script src="bootstrap/3.3.7/bootstrap.min.js"></script>
+    <!--<script th:src="@{/common.js}"></script>-->
+
+    <style>
+
+    </style>
+
+  </head>
+  <script type="text/javascript">
+    function running(){
+    var div=$("div");
+    div.animate({left:'100%'},"5000000000",function(){
+    $(this).hide();
+
+   $(this).animate({left:'0px'},"fast",function(){
+     $("#dd").show();
+     running();
+    })
+   })
+
+    }
+
+  </script>
+  <body>
+<div style="width:100%;overflow: hide;">
+
+<input type="button" value="开始动画" onclick="running();"/>
+<p>默认情况下，所有 HTML 元素的位置都是静态的，并且无法移动。如需对位置进行操作，记得首先把元素的 CSS position 属性设置为 relative、fixed 或 absolute。</p>
+<div style="background:#98bf21;height:100px;width:100px;position:absolute;" id="dd">
+sdfsdf
+</div>
+</div>
+  </body>
+</html>

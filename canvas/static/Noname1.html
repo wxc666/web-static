@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Author" content="joneywon">
+  <title>DEMO</title>
+    <script src="jquery-1.8.0.min.js"></script>
+  <style>
+    table,table tr th, table tr td { border:1px solid #0094ff; }
+    table { 
+		
+		min-height: 25px; 
+		line-height: 25px; 
+		text-align: center; 
+		border-collapse: collapse; 
+		padding:1px;
+  } 
+
+
+  body{
+   margin:0 auto;
+   overflow:hidden;
+   
+  }
+
+  .blockArea{
+    width: 100%;
+    height: 100%;
+    border:1px solid black;
+    background-color: white;
+    display: none;
+  }  
+
+  .div1{
+    display: block;
+  }   
+  .div2{
+    background-color: #AFD6FC
+  }    
+  .div3{
+    background-color: #F3E0FF
+  }
+  .div4{
+    background-color: #FAF3C5
+  }   
+  .main {
+      width: 100%;
+      height:100%;
+      border:1px solid #000;
+      margin:0 auto;
+      text-align:center;
+  }  
+  .footer{
+    position:fixed;
+    right: 0;
+    bottom:0;
+    text-align:center;
+    filter:alpha(opacity:30);
+    opacity:0.3;
+    -moz-opacity:0.3;
+    -khtml-opacity: 0.3;    
+  }
+  .footer img{
+    padding-bottom: 50px;
+  }
+  #upImg{
+    display: none;
+  }
+  </style>
+ </head>
+ <body>
+
+<div class="main">
+  <div class="blockArea div1" id="div1">default</div>
+  <div class="blockArea div2" id="div2">2</div>
+  <div class="blockArea div3" id="div3">3</div>
+  <div class="blockArea div4" id="div4">4</div>
+</div>  
+
+<div class="footer" id="footer">
+   <img src="up_black2.png" id="upImg"/></br>
+   <img src="down_black2.png" id="downImg"/>
+</div>
+
+
+<script type="text/javascript">
+ var index=0;
+ var arr=getBlock();//new Array("div1","div2","div3","div4");
+  $(function(){
+     resetPanelPos();
+    $('#downImg').click(function () {
+        scrollDown();
+    })  
+    $('#upImg').click(function () {
+        scrollUp();
+    })    
+
+        //回车事件
+    $(window).keydown(function (e) {
+        if(e.keyCode == 38) { //向上
+           scrollUp();
+        }
+        if(e.keyCode == 40) { //向下
+           scrollDown();
+        }        
+    });  
+  })
+
+ // $(window).resize(function() {
+ //   resetPanelPos();
+ // });
+  
+
+  function resetPanelPos(){
+     var winW=$(window).width();
+     var winH=$(window).height();
+     $(".blockArea").css("height",winH);
+     //$(".blockArea").css("width",winW-20);
+  }
+  
+  function getBlock(){
+    var arr = new Array()
+      $(".blockArea").each(function(index,element){
+        arr.push(element.id);
+      })
+    return arr;
+  }
+  function scrollUp(){
+       var display =$('#upImg').css('display');
+       if(display == 'none'){
+          return;
+       }
+       if(index==1){
+          $('#upImg').hide();
+       }
+       $("#"+arr[index-1]).slideDown("slow");
+       $("#"+arr[index]).slideDown("slow");
+       index--;
+  }
+
+  function scrollDown(){
+     if(index == arr.length-1){
+        index=0;
+        $("#"+arr[index]).slideDown("slow");
+        $("#"+arr[arr.length-1]).slideUp("slow");
+        $('#upImg').hide();
+     }else{
+       $("#"+arr[index+1]).slideDown("slow");
+       $("#"+arr[index]).slideUp("slow");
+        //$("#"+arr[index+1]).slideDown("slow");
+        index++;
+       $('#upImg').show();
+     }
+  }
+/*  $(window).scroll(function() {
+        console.log("scroll");
+        if(parseInt($(document).scrollTop())>=300){
+            $('.arrow_top').fadeIn();
+        }else{
+            $('.arrow_top').fadeOut();
+        }
+    });  */
+</script>
+
+ </body>
+</html>

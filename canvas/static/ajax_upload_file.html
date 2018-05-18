@@ -1,0 +1,203 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="description" content="springcloud client status"></meta>
+    <meta name="author" content="wangxc1112"></meta>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+   	<title>joney</title>
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <style>
+        table,table tr th, table tr td {
+            border:1px solid #0094ff;
+        }
+        table {
+            width: auto;
+            min-height: 25px;
+            line-height: 25px;
+            text-align: center;
+            border-collapse: collapse;
+            padding:1px;
+        }
+
+		div.panel{
+		 height:100px;
+		 text-align: center;
+		 vertical-align: middle;
+		 line-height: 100px;
+		 font-size: 100px;
+		 font-weight: bold;
+		}        
+    </style>
+  </head>
+  <body>
+
+  	<table align="center">
+   	 <tr>
+   	 	<td>
+		   <div class="panel">
+		   0
+		   </div>
+   	 	</td>  	 	
+   	 </tr>
+   	 <tr>
+   	 	<td class="msginfo">
+   	 	</td> 
+   	 </tr>	
+   </table>
+
+	<form action="http://127.0.0.1/upload" method="POST" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>文件：<input type="file" name="file" id="file"/></td>
+			</tr>
+			<tr>
+				<td>业务模块：<input type="text" name="bizModule" id="bizModule" value="hahaha"/></td>
+			</tr>
+			<tr>
+				<td>token：<input type="text" name="token" id="token" value="zhangsan"/></td>
+			</tr>
+			<tr>
+				<td>
+				 <input type="submit" value="普通上传"/>  
+				 <input type="button" value="Ajax上传" id="upload"/>
+				 <input type="button" value="查询" onclick="queryList()"/>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+    <table>
+      <thead>
+	   <tr>
+	     <th>ID</th>
+		 <th>UUID</th>
+		 <th>FILE_SIZE</th>
+		 <th>BIZ_MODULE</th>
+		 <th>CHECK_SUM</th>
+		 <th>ORIGINAL_NAME</th>
+		 <th>SUFFIX_NAME</th>
+		 <th>SUFFIX_TYPE</th>
+		 <th>GROUP_NAME</th>
+		 <th>STORE_PATH</th>
+		 <th>CREATE_TIME</th>
+		 <th>STATE</th>
+	   </tr>
+	  </thead>
+	  <tbody id="tab_body">
+	  <tbody>
+	</table>
+
+  <script type="text/javascript">
+        $(function () {
+            $("#upload").click(function () {
+            	timerStart();
+                var formData = new FormData();
+                formData.append("file", document.getElementById("file").files[0]);   
+				formData.append("bizModule", document.getElementById("bizModule").value);   
+				//formData.append("token", document.getElementById("token").value);   
+                $.ajax({
+                    url: "http://127.0.0.1/upload",
+                    type: "POST",
+                    data: formData,
+                    /**
+                    *必须false才会自动加上正确的Content-Type
+                    */
+                    contentType: false,
+                    /**
+                    * 必须false才会避开jQuery对 formdata 的默认处理
+                    * XMLHttpRequest会对 formdata 进行正确的处理
+                    */
+                    processData: false,
+					//beforeSend: function (xhr) {
+					// //发送ajax请求之前向http的head里面加入验证信息
+					//  xhr.setRequestHeader("Access-Control-Allow-Origin", "*"); // 请求发起前在头部附加token
+					//},
+                    success: function (data) {
+                    	timerStop();
+                    	$(".msginfo").append("上传到结束："+$(".panel").html()+" "+JSON.stringify(data)+"<br>");
+						//alert(JSON.stringify(data));
+
+                    },
+                    error: function (ret) {
+                    	timerStop();
+                        alert("上传失败！"+JSON.stringify(ret));
+                        
+                    }
+                });
+            });
+        });
+
+	  function deleteFile(fid) {
+		var url = "http://192.168.12.26/delete?fid="+fid;
+		$.ajax({
+			type:"GET",
+			url:url,
+			dataType:'json',
+			success:function(data){
+				alert(JSON.stringify(data));
+				//window.location.reload(true);
+			},
+			error:function(data) {
+				alert(JSON.stringify(data));
+			}
+		});
+	}
+
+	function queryList() {
+		var bizModule = document.getElementById("bizModule").value
+		var url = "http://192.168.12.26/list?bizModule="+bizModule;
+		$.ajax({
+			type:"GET",
+			url:url,
+			dataType:'json',
+			success:function(data){
+					  if($("#tab_body").html() != "" ){
+						  $("#tab_body").empty();
+					  }
+				//alert(JSON.stringify(data));
+				if(data != null && data.data != null && data.data.list.length >0){
+					  $.each(data.data.list, function(i,val){ 
+						  var tr = "<tr>"+
+						     "<td>"+val.id+"</td>"+
+						     "<td>"+val.uuid+"</td>"+
+							 "<td>"+val.fileSize+"</td>"+
+							 "<td>"+val.bizModule+"</td>"+
+							 "<td>"+val.checkSum+"</td>"+
+							 "<td>"+val.originalName+"</td>"+
+							 "<td>"+val.suffixName+"</td>"+
+							 "<td>"+val.suffixType+"</td>"+
+							 "<td>"+val.groupName+"</td>"+
+							 "<td>"+val.storePath+"</td>"+
+							 "<td>"+val.createTime+"</td>"+
+							 "<td>"+(val.state == -1 ? '已删除' : '正常')+"</td>"+
+							 "</tr>";
+							 $("#tab_body").append(tr);
+					  });
+				}
+				//window.location.reload(true);
+			},
+			error:function(data) {
+				alert(JSON.stringify(data));
+			}
+		});
+	}
+	var timer;
+	var index;
+    function timerStart(){
+      $(".panel").html("0");
+     // $(".msginfo").empty();
+      index = 0.0;
+      timer = setInterval(function(){
+          $(".panel").html(index%10==0?index/10+".0":index/10);
+          index +=1;
+      }, 100);
+    }
+    function timerStop(){
+      clearInterval(timer);
+    }
+  </script>
+  </body>
+</html>

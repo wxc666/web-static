@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="description" content="springcloud client status"></meta>
+    <meta name="author" content="wangxc1112"></meta>
+   	<title>joney</title>
+
+  	<link href="bootstrap/3.3.7/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="jquery/2.1.1/jquery.min.js"></script>
+    <script src="bootstrap/3.3.7/bootstrap.min.js"></script>
+    <!--<script th:src="@{/common.js}"></script>-->
+
+    <style>
+  body{
+  background-color:#4A5D6C
+  }
+  .container{
+     display:table;
+     height:100%; 
+     width: 100%;
+     padding: 0px 0px;
+   }
+
+  .row{
+     display: table-cell;
+     vertical-align: middle; 
+     text-align: center;
+   }
+  .div1{
+    overflow:hidden;
+  }
+  .div2{
+    width:426px;
+    position:relative;
+    border:1px red solid;
+  }   
+    </style>
+
+  </head>
+
+  <body>
+  <div class="container">
+    <div class="row">
+      <div class="span4 offset4">
+          <div class="div1">
+              <div class="div2">
+                <img src="images/title2.png"/>
+              <!--<img src="images/bike2.gif"/>-->
+            </div>
+          </div>        
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+function running(){
+    var parentDivWidth = $(".div2").parent().width();
+    //var moveWidth=parentDivWidth;//-$(".div2").width();
+    var selfWidth=$(".div2").width();
+  $(".div2").animate({left: parentDivWidth+'px'},8000,"linear",function(){
+    $(this).css("visibility","hidden");
+    $(this).css("left",-selfWidth+"px");
+    $(this).css("visibility","visible");
+    running();
+  });
+}
+function fadding(){
+  var firstImgHeight=$(".div2").find("img").first().height();
+  $(".div2").css("visibility","hidden");
+  $(".div2").css({"width":"auto","top": -firstImgHeight+"px"});
+  $(".div2").css("visibility","visible");
+  $(".div2").animate({top:0},1000,function(){
+    //alert(123);
+  });
+  //alert(firstImgHeight);
+} 
+$(function(){
+  //running();
+  fadding();
+})
+</script>
+  </body>
+</html>

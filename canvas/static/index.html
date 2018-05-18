@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="description" content="springcloud client status"></meta>
+    <meta name="author" content="joney"></meta>
+   	<title>joney</title>
+
+  	<link href="bootstrap/3.3.7/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap/3.3.7/bootstrap.min.js"></script>
+    <!--<script th:src="@{/common.js}"></script>-->
+
+    <style>
+    @font-face{
+    font-family: Notera;
+    src: url("fonts/Notera_PersonalUseOnly.ttf");
+    }
+    /* Sticky footer styles
+    -------------------------------------------------- */
+    html {
+      position: relative;
+      min-height: 100%;
+      
+    }
+    body {
+      /* Margin bottom by footer height */
+      margin-bottom: 60px;
+     background-color: #212326;
+      background-image: url("images/bg1.jpg");
+      
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      /* Set the fixed height of the footer here */
+      text-align: center;
+      height: 60px;
+      color: #FFFFFF;
+      background-color: #212326;
+      filter: Alpha(opacity=20); /* IE */   
+      -moz-opacity:0.2;    /* FF 主要是为了兼容老版本的FF */
+      opacity:0.2;    /* FF */      
+      
+    }
+    .footer div{
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 15px;
+    }
+    div.jumbotron{
+      background-color: transparent;
+      padding: 0px;
+    }
+    div.jumbotron .container h1{
+      color: #01A9B6;
+      font-size: 15ex;
+      font-family: "Notera";
+      font-weight: 800
+    }    
+    .btn-lg{
+      filter: Alpha(opacity=30); /* IE */   
+      -moz-opacity:0.3;    /* FF 主要是为了兼容老版本的FF */
+      opacity:0.3;    /* FF */  
+    }
+  .div2{
+    position:relative;
+  }      
+  .maskDiv{ 
+    display: none;  
+    position: absolute;  
+    top: 0%;  
+    left: 0%;  
+    width: 100%;  
+    height: 100%;  
+    background-color: black;  
+    z-index:1001;  
+    -moz-opacity: 0.7;  
+    opacity:0.7;  
+    filter: alpha(opacity=70);
+  }
+    </style>
+
+  </head>
+
+  <body>
+  <div class="jumbotron">
+    <div class="container">
+       <h1>Welcome</h1>
+        <p>&nbsp;</p>
+        <p><a class="btn btn-primary btn-lg" role="button" onclick="changeBgImg()">about</a></p>
+    </div>
+  </div>
+  <div style="text-align: center;" class="div2">
+    <img src="images/title2.png" style="display:none"/>
+  </div>
+
+  <div class="maskDiv"></div>
+  <footer class="footer">  
+     <div>
+        Copyright @2018 All rights reserved<br/>
+        粤ICP备18011921号      
+     </div>
+
+  </footer>
+
+<script type="text/javascript">
+  var arr=new Array();
+  /*
+  arr[0]="http://i1.bvimg.com/630907/ab7b83a9160f973c.jpg";
+  arr[1]="http://i4.bvimg.com/630907/957a5a045f6da133.jpg";
+  arr[2]="http://i2.bvimg.com/630907/88ded30637fed0fa.jpg";
+  arr[3]="http://i2.bvimg.com/630907/f19ae7dde5af76e4.jpg";
+  arr[4]="http://i2.bvimg.com/630907/99e89ef67a352277.jpg";
+  arr[5]="http://i2.bvimg.com/630907/4bed8aaf31f1a199.jpg";
+  arr[6]="http://i4.bvimg.com/630907/c792ef2585d2175a.jpg";
+  arr[7]="http://i2.bvimg.com/630907/3d55229f2bf27243.jpg";
+  arr[8]="http://i2.bvimg.com/630907/51570e5330036718.jpg";
+  arr[9]="http://i2.bvimg.com/630907/034f6b5e6d985250.jpg";
+  */
+
+  arr[0]="images/bg1.jpg";
+  arr[1]="images/bg2.jpg";
+  arr[2]="images/bg3.jpg";
+  arr[3]="images/bg4.jpg";
+  arr[4]="images/bg5.jpg";
+  arr[5]="images/bg6.jpg";
+  arr[6]="images/bg7.jpg";
+  arr[7]="images/bg8.jpg";
+  arr[8]="images/bg9.jpg";
+  arr[9]="images/bg10.jpg";  
+  
+  var bgIndex=1;
+  function changeBgImg(){
+    $(".maskDiv").show();
+    $("body").css("background-image","url('"+arr[bgIndex]+"')");
+    fadding(); 
+    $(".maskDiv").hide();
+    if(bgIndex<arr.length-1){
+      bgIndex++;
+    }else{
+      bgIndex=0;
+    }
+  }
+
+  function fadding(){
+    var div2=$(".div2");
+    var firstImgHeight=div2.find("img").first().height();
+    //$(".div2").css("visibility","hidden");
+    div2.css({"width":"auto","top": -firstImgHeight*2+"px"});
+    div2.find("img").first().show();//css({"display":"block"});
+    div2.animate({top:0},"slow",function(){
+      //alert(123);
+    });
+  //alert(firstImgHeight);
+} 
+$(function(){
+  //running();
+  setTimeout("fadding()",1000);
+  //fadding();
+})
+</script>
+  </body>
+</html>

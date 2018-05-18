@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="description" content="springcloud client status"></meta>
+    <meta name="author" content="wangxc1112"></meta>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+   	<title>joney</title>
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <style>
+        table,table tr th, table tr td {
+            border:1px solid #0094ff;
+        }
+        table {
+            text-align: center;
+            border-collapse: collapse;
+            padding:1px;
+        }
+		div.panel{
+		 height:200px;
+		 text-align: center;
+		 vertical-align: middle;
+		 line-height: 200px;
+		 font-size: 200px;
+		 font-weight: bold;
+		}
+    </style>
+  </head>
+  <body>
+   <table align="center">
+   	 <tr>
+   	 	<td>
+		   <div class="panel">
+		   0
+		   </div>
+   	 	</td>
+   	 </tr>
+   </table>
+
+   <input type="button" id="start" value="开始"/>
+   <input type="button" id="stop" value="结束"/>
+
+
+  <script type="text/javascript">
+        $(function () {
+        	var timer = null;
+        	var index = 0.0;
+            $("#start").click(function () {
+            	index = 0.0;
+				timer = setInterval(function(){
+					$(".panel").html(index%10==0?index/10+".0":index/10);
+					index +=1;
+				}, 100);
+            });
+            $("#stop").click(function () {
+				clearInterval(timer);
+            });            
+        });
+
+
+
+	  function deleteFile(fid) {
+		var url = "http://192.168.12.26/delete?fid="+fid;
+		$.ajax({
+			type:"GET",
+			url:url,
+			dataType:'json',
+			success:function(data){
+				alert(JSON.stringify(data));
+				//window.location.reload(true);
+			},
+			error:function(data) {
+				alert(JSON.stringify(data));
+			}
+		});
+	}
+
+  </script>
+  </body>
+</html>
