@@ -291,6 +291,15 @@ var themes = {
 	'default' : '/easyui/themes/default/easyui.css',
 	'material': '/easyui/themes/material/easyui.css',
 	'metro' : '/easyui/themes/metro/easyui.css'
+/*	'ui-cupertino' : '/easyui/themes/ui-cupertino/easyui.css',
+	'ui-dark-hive' : '/easyui/themes/ui-dark-hive/easyui.css',
+	'ui-pepper-grinder' : '/easyui/themes/ui-pepper-grinder/easyui.css',
+	'ui-sunny' : '/easyui/themes/ui-sunny/easyui.css',
+	'metro-blue' : '/easyui/themes/metro-blue/easyui.css',
+	'metro-gray' : '/easyui/themes/metro-gray/easyui.css',
+	'metro-green' : '/easyui/themes/metro-green/easyui.css',
+	'metro-orange' : '/easyui/themes/metro-orange/easyui.css',
+	'metro-red' : '/easyui/themes/metro-red/easyui.css'*/
 };
 $(function() {
 
