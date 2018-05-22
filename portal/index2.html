@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="description" content="springcloud client status"></meta>
+    <meta name="author" content="joney"></meta>
+   	<title>joney</title>
+
+  	<link href="bootstrap/3.3.7/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="bootstrap/3.3.7/bootstrap.min.js"></script>
+    <!--<script th:src="@{/common.js}"></script>-->
+
+    <style>
+    @font-face{
+    font-family: Notera;
+    src: url("fonts/Notera_PersonalUseOnly.ttf");
+    }
+    /* Sticky footer styles
+    -------------------------------------------------- */
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      /* Margin bottom by footer height */
+      margin-bottom: 60px;
+      background-color: inherit;
+      background-image: url("http://i1.bvimg.com/630907/ab7b83a9160f973c.jpg");
+      
+    }
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      /* Set the fixed height of the footer here */
+      text-align: center;
+      height: 60px;
+      color: #FFFFFF;
+      background-color: #212326;
+      filter: Alpha(opacity=20); /* IE */   
+      -moz-opacity:0.2;    /* FF 主要是为了兼容老版本的FF */
+      opacity:0.2;    /* FF */      
+      
+    }
+    .footer div{
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 15px;
+    }
+    div.jumbotron{
+      background-color: inherit;
+      padding: 0px;
+    }
+    div.jumbotron .container h1{
+      color: #01A9B6;
+      font-size: 15ex;
+      font-family: "Notera";
+      font-weight: 800
+    }    
+    .btn-lg{
+      filter: Alpha(opacity=40); /* IE */   
+      -moz-opacity:0.4;    /* FF 主要是为了兼容老版本的FF */
+      opacity:0.4;    /* FF */  
+    }
+  .div2{
+    position:relative;
+  }      
+    </style>
+
+  </head>
+
+  <body>
+  <div class="jumbotron">
+    <div class="container">
+       <h1>Welcome</h1>
+        <p>&nbsp;</p>
+        <p><a class="btn btn-primary btn-lg" role="button" onclick="fadding()">about</a></p>
+    </div>
+  </div>
+  <div style="text-align: center;" class="div2">
+    <img src="http://i1.bvimg.com/630907/d8b1cb491c68c6f5.png" style="display:none"/>
+  </div>
+  <footer class="footer">  
+     <div>
+        Copyright @2018 All rights reserved<br/>
+        粤ICP备18011921号      
+     </div>
+
+  </footer>
+
+<script type="text/javascript">
+  function fadding(){
+    var div2=$(".div2");
+    var firstImgHeight=div2.find("img").first().height();
+    //$(".div2").css("visibility","hidden");
+    div2.css({"width":"auto","top": -firstImgHeight*2+"px"});
+    div2.find("img").first().show();//css({"display":"block"});
+    div2.animate({top:0},"slow",function(){
+      //alert(123);
+    });
+  //alert(firstImgHeight);
+} 
+$(function(){
+  //running();
+  setTimeout("fadding()",1000);
+  //fadding();
+})
+</script>
+  </body>
+</html>
