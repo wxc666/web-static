@@ -90,7 +90,7 @@
     <div class="container">
        <h1>Welcome</h1>
         <p>&nbsp;</p>
-        <p><a class="btn btn-primary btn-lg" role="button" onclick="changeBgImg()">about</a></p>
+        <p><a class="btn btn-primary btn-lg" role="button" onclick="javascript:window.location.href='admin.joney.fun';">进入BMS...</a></p>
     </div>
   </div>
   <div style="text-align: center;" class="div2">
@@ -136,7 +136,7 @@
   function changeBgImg(){
     $(".maskDiv").show();
     $("body").css("background-image","url('"+arr[bgIndex]+"')");
-    fadding(); 
+    //fadding(); 
     $(".maskDiv").hide();
     if(bgIndex<arr.length-1){
       bgIndex++;
@@ -160,6 +160,7 @@ $(function(){
   //running();
   setTimeout("fadding()",1000);
   //fadding();
+  self.setInterval("changeBgImg()",2000);
 })
 </script>
   </body>
