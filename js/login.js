@@ -1,13 +1,16 @@
 
 $(function() {
 	refreshCode();
-    if ($.cookie("rmbUser") == "true") {  
-        $("#rmbUser").attr("checked", "checked");  
-       // $("input[name='userName']").val($.cookie("userName"));  
-       // $("input[name='password']").val($.cookie("password"));  
-       $("#userName").textbox("setValue",$.cookie("userName"));
-       $("#password").passwordbox("setValue",$.cookie("password"));
-    }  
+
+    var str=$.cookie("rmbUserInfo");
+    if(str!=undefined && str.length>0){
+       var rmbUserInfo = JSON.parse(AESDecrypt(str));
+       $("#userName").textbox("setValue",rmbUserInfo.userName);
+       $("#password").passwordbox("setValue",rmbUserInfo.password);
+       $("#rmbUser").attr("checked", true);
+    }else{
+        $("#rmbUser").attr("checked", false);  
+    }
 
     //回车事件
 	$('#checkCode').textbox('textbox').keydown(function (e) {
@@ -22,7 +25,7 @@ $(function() {
 function refreshCode(img){
 	var now = new Date().getTime();
 	$("input[name='checkId']").val(now);
-	$("#checkCodeImg").attr("src","/home/checkCode?checkId="+now);
+	$("#checkCodeImg").attr("src","/check_code?checkId="+now);
 }
 function login(){
 	var userName = $("#userName").textbox("getValue"); //$("#login_form").find("input[name='userName']").val();
@@ -72,15 +75,15 @@ function login(){
         //    platform: 'PC',
         //    imei: ''
        // },
-        type:"POST",
+        type:"post",
         url:"/user/login",
-        contentType:"application/json;charset=utf-8",
-        data:JSON.stringify(param),
+        //contentType:"application/json;charset=utf-8",
+        data:{param:AESEncrypt(param)},
         dataType:'json',
         success:function(ret){
         	if(ret.code == 0){ //成功
         	   $.cookie('token',ret.data,{expires:30, path:'/'})
-               window.location.href = "/home/index";
+               window.location.href = "/main";
 			}else{
               //alert(ret.msg);
                 $("#errMsgBar").show();
@@ -100,15 +103,13 @@ function login(){
 
 function remenberMe(){
  if ($("#rmbUser").attr("checked") == "checked") {  
-        var userName = $("#userName").textbox("getValue");
-        var password = $("#password").passwordbox("getValue");
-        $.cookie("rmbUser", "true", {expires:7, path:'/'}); // 存储一个带7天期限的 cookie  
-        $.cookie("userName", userName, {expires:7, path:'/'}); 
-        $.cookie("password", password, {expires:7, path:'/'}); 
+        var rmbUserInfo={
+                userName:$("#userName").textbox("getValue"),
+                password:$("#password").passwordbox("getValue")
+            }
+        $.cookie("rmbUserInfo", AESEncrypt(rmbUserInfo), {expires:7, path:'/'}); // 存储一个带7天期限的 cookie  
     } else {  
-        $.cookie("rmbUser", "false", {expires:-1, path:'/'});
-        $.cookie("userName", "", {expires:-1, path:'/'});
-        $.cookie("password", "", {expires:-1, path:'/'});  
+        $.cookie("rmbUserInfo", "", {expires:-1, path:'/'});
     } 
 }
 

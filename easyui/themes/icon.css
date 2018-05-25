@@ -103,9 +103,15 @@
 .icon-group-link{
 	background:url('myicons/group_link.png') no-repeat center center;
 }
+.icon-group-key{
+	background:url('myicons/group_key.png') no-repeat center center;
+}
 .icon-delete{
 	background:url('myicons/delete.png') no-repeat center center;
 }
 .icon-user-go{
 	background:url('myicons/user_go.png') no-repeat center center;
+}
+.icon-key{
+	background:url('myicons/key.png') no-repeat center center;
 }

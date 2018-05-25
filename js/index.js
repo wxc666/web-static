@@ -449,8 +449,26 @@ function logout(){
 	    cancel: "否",
 	    fn: function (r) {
 			if (r){
-		    	$.cookie("token",null,{expires:-1,path:'/'})
-				window.location.href = "/home/login";
+				$.ajax({
+	                type:'get',
+	               // contentType: "application/json; charset=utf-8",  //直接发送json对象
+	                url:"/user/logout",
+	                dataType:'json',
+	                success:function(data){
+	                    if(data.code!=0){
+	                        $.messager.alert('提示', data.msg, 'error');
+	                    }
+	                },
+	                error:function(e) {
+	                    $.messager.alert('提示', '更新数据异常', 'error');
+
+	                },
+	                complete:function () {
+	                    $.messager.progress('close');
+	                    $.cookie("token",null,{expires:-1,path:'/'})
+						window.location.href = "/login";
+	                }
+	            });
 			}
 	    }
 	});
@@ -485,7 +503,7 @@ function changePwd(){
                         $.messager.alert('提示', data.msg, 'error');
                     }else{
 				    	$.cookie("token",null,{expires:-1,path:'/'})
-						window.location.href = "/home/login";
+						window.location.href = "/login";
                     }
                 },
                 error:function(e) {
