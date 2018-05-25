@@ -455,9 +455,9 @@ function logout(){
 	                url:"/user/logout",
 	                dataType:'json',
 	                success:function(data){
-	                    if(data.code!=0){
-	                        $.messager.alert('提示', data.msg, 'error');
-	                    }
+	                   // if(data.code!=0){
+	                    //    $.messager.alert('提示', data.msg, 'error');
+	                   // }
 	                },
 	                error:function(e) {
 	                    $.messager.alert('提示', '更新数据异常', 'error');
