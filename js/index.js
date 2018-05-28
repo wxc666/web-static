@@ -176,19 +176,22 @@ function tabClose() {
 		return false;
 	});
 }		
+function refreshCurTab(){
+	var currTab = $('#tabs').tabs('getSelected');
+	var tabTitle = currTab.panel('options').title;
+
+	if(tabTitle != 'Home'){
+		$('#tabs').tabs('loadTabIframe',{      
+			'which': tabTitle,      
+			'iframe':{'src':currTab.panel('body').find('iframe').attr('src')}      
+		});
+	}
+}
 //绑定右键菜单事件
 function tabCloseEven() {
 	//刷新
 	$('#mm-tabupdate').click(function(){
-		var currTab = $('#tabs').tabs('getSelected');
-		var tabTitle = currTab.panel('options').title;
-
-		if(tabTitle != 'Home'){
-			$('#tabs').tabs('loadTabIframe',{      
-				'which': tabTitle,      
-				'iframe':{'src':currTab.panel('body').find('iframe').attr('src')}      
-			});
-		}
+		refreshCurTab();
 
 
 
@@ -441,6 +444,7 @@ function initMenus(menuList){
 }
 
 function logout(){
+
 	$.messager.confirm({
 	    width: 200, 
 	    title: '提示',
@@ -449,6 +453,7 @@ function logout(){
 	    cancel: "否",
 	    fn: function (r) {
 			if (r){
+				$.messager.progress();
 				$.ajax({
 	                type:'get',
 	               // contentType: "application/json; charset=utf-8",  //直接发送json对象
@@ -460,7 +465,7 @@ function logout(){
 	                   // }
 	                },
 	                error:function(e) {
-	                    $.messager.alert('提示', '更新数据异常', 'error');
+	                    $.messager.alert('提示', '登出异常', 'error');
 
 	                },
 	                complete:function () {
@@ -475,6 +480,7 @@ function logout(){
 }
 
 function changePwd(){
+
 	if($('#changePwdForm').form('validate')){
 		var param = {
 	        "oldPwd":$("#oldPwd").passwordbox("getValue"),
@@ -516,3 +522,49 @@ function changePwd(){
             });
 	}
 }
+
+function innerFrameLogin(){
+	$('#innerFrameLoginDlg').dialog('open');
+}
+
+function innerFrameLoginSubmit(){
+	if($('#innerFrameLoginForm').form('validate')){
+		var param = {
+	        "userId":$("#loginId").val(),
+	        "userName":$("#loginName").val(),
+	        "password":$("#loginPwd").passwordbox("getValue")
+    	};
+
+		var encryptParam = {
+	        "param":AESEncrypt(param)
+    	};
+
+            $.messager.progress();
+            $.ajax({
+                type:'POST',
+               // contentType: "application/json; charset=utf-8",  //直接发送json对象
+                url:"/user/inner_page_frame_login",
+                data:encryptParam,
+                cache:false,
+                dataType:'json',
+                success:function(ret){
+                    if(ret.code==0){
+                        $.cookie('token',ret.data,{expires:30, path:'/'})
+						$('#innerFrameLoginDlg').dialog('close');
+						$("#loginPwd").passwordbox("setValue","");
+						refreshCurTab();
+                    }else{
+						$.messager.alert('提示', data.msg, 'error');
+                    }
+                },
+                error:function(e) {
+                    $.messager.alert('提示', '登录失败', 'error');
+
+                },
+                complete:function () {
+                    $.messager.progress('close');
+                }
+            });
+	}
+}
+

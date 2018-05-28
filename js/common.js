@@ -214,3 +214,12 @@ function showMsg(msg){
         style: {right: '',bottom: ''}
     });
 }
+
+
+$(document).ajaxSuccess(function(event, xhr, settings) {
+  if(xhr != undefined){
+        if(xhr.responseText.indexOf("invalid-table")>-1){
+            parent.innerFrameLogin();
+        }
+  }
+});

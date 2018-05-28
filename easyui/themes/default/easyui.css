@@ -3296,3 +3296,11 @@
   height: 1px;
   left: -999px;
 }
+
+.cs-north {
+    background: -webkit-linear-gradient(left,  #5587D9, white) ; /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(left,  #5587D9, white) ; /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(left,  #5587D9, white) ; /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #5587D9,white) ; /* 标准的语法（必须放在最后） */ 
+    color: #FFFFFF;
+}

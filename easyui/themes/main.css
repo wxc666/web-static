@@ -38,18 +38,18 @@ a:active {
 }
 .cs-north {
 	height:60px;
-}
-.cs-north-bg {
-	width: 100%;
-	height: 100%;
-	/*background: url(gray/images/header_bg.png) repeat-x;*/
+
 }
 
 .cs-north-logo {
-	display: inline-block;
-	color:#000000;font-size:22px;font-weight:bold;text-decoration:none
-}
+	float: left;
+    width: 200px;
 
+}
+.cs-north-info-item,
+.l-btn{
+    color: #444  !important;
+}
 .cs-west {
 	width:200px;padding:0px;
 }
